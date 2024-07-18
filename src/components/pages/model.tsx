@@ -1,49 +1,53 @@
-
-import React from 'react'
-import { adidasArr, AdidasItem } from './adidas'
-import { useParams } from 'react-router-dom';
-import { pumaArr } from './puma';
+import {adidasArr, AdidasItem} from "./Adidas";
+import {useParams} from "react-router-dom";
+import {pumaArr, PumaItem} from "./Puma";
 
 
-type FirmType = "adidas" | "puma";
 
-interface Params {
-  id: string;
-  cross: FirmType;
+type CrossModels= {
+    [key: string]: (AdidasItem[] | PumaItem[]);
 }
 
-interface Cross {
-  id: string;
+const crossModels: CrossModels={
+    adidas:adidasArr,
+    puma: pumaArr
 }
 
-export function Model() {
-  const params = useParams()
-  console.log(params);
+export const Model = () => {
+    // const params=useParams()
+    const { model, id } = useParams();
+    console.log(model)
+        //const currentModel=adidasArr.find(el=>el.id===Number(id))
+    const currentModel = model
+        ? crossModels[model].find((el) => el.id === Number(id))
+        : null;
 
-const crossList: Record<FirmType, AdidasItem[]> = {
-  adidas: adidasArr,
-  puma: pumaArr,
-} 
+      return (
+        <div style={{textAlign:'center'}}>
+            {currentModel
+                ?<>
+                    <h2>{currentModel?.model}</h2>
+                    <h4>{currentModel?.collection}</h4>
+                    <h3>{currentModel?.price}</h3>
+                    <img
+                        src={currentModel?.picture}
+                        alt={currentModel?.model}
+                        style={{width: '600px', height: 'auto', marginRight: '10px'}}
+                    />
+                </>
+                :   <h2>Модель отсутствует</h2>
+            }
 
-const firma = params.cross as FirmType
 
-// console.log(crossList[firma]);
-const item = (crossList[firma]).find(m => m.id === params.id)
 
-  return (
-    <div style={{ textAlign: "center" }}>
-      {item ? (<>
-      
-        <h2>{`model: ${item.model}`}</h2>
-        <h4>{`collection: ${item.collection}`}</h4>
-        <h3>{`price: ${item.price}`}</h3>
-        <img
-          src={item.picture}
-          alt={item.model}
-          style={{ width: "400px", margin: "50px" }}/> 
-          </>
-      ) : <h3>Модель отсутствует</h3>}
-    </div>
-  )
-}
-
+        {/*    <h2>{adidasArr[Number(params.id)].model}</h2>*/}
+        {/*    <h4>{adidasArr[Number(params.id)].collection}</h4>*/}
+        {/*    <h3>{adidasArr[Number(params.id)].price}</h3>*/}
+        {/*    <img*/}
+        {/*        src={adidasArr[Number(params.id)].picture}*/}
+        {/*        alt={adidasArr[Number(params.id)].model}*/}
+        {/*        style={{width: '600px', height: 'auto', marginRight: '10px'}}*/}
+        {/*    />*/}
+        </div>
+);
+};
