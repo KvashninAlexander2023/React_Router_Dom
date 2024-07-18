@@ -1,17 +1,63 @@
 import React from 'react';
+import adidasModel1 from"./../../assets/AdiFOM_TRXN_Shoes_Black_IG7453_01_standard.webp"
+import adidasModel2 from"./../../assets/Superstar_XLG_Shoes_Black_IG9777_01_standard.webp"
+import adidasModel3 from"./../../assets/PostMove_Mid_Cloudfoam_Super_Lifestyle_Basketball_Mid_Classic_Shoes_Black_GY7163_01_standard.webp"
+import { Link, Route, Routes } from 'react-router-dom';
+import { Model } from './model';
 
-export const PageTwo = () => {
+export type AdidasItem= {
+    model: string;
+    id: string;
+    collection: string;
+    price: string;
+    picture: string;
+}
+export const adidasArr:AdidasItem[] = [
+    {
+        model: 'ADIDAS ADIFOM TRXN',
+        id:"1",
+        collection: 'new collection1',
+        price: '100200$',
+        picture: adidasModel1,
+
+    },
+    {
+        model: 'ADIDAS ADIFOM SUPER',
+        id:"2",
+        collection: 'new collection22',
+        price: '200300$',
+        picture: adidasModel2
+    },
+    {
+        model: 'ADIDAS SUPER SUPERSKI',
+        id:"3",
+        collection: 'new collection333',
+        price: '300400$',
+        picture: adidasModel3
+    }
+]
+
+
+
+export const Adidas = () => {
     return (
         <div>
-            <h2>PUMA</h2>
+           <h2> ADIDAS</h2>
+            <div style={{display:"flex", justifyContent:"center"}}>
+                {
+                    adidasArr.map((m, index) => (
+                        <Link to={`/adidas/${m.id}`} key={m.id}>
+                        <img 
+                        src={m.picture} 
+                        alt={m.model}
+                        style={{width:"200px", marginRight:"10px"}}/>
+                        </Link>
+                    ))
+                }
+            </div>
             <p>
-                What is Lorem Ipsum? PageTwo
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard
-                dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently
-                with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
+                What is Lorem Ipsum? ADIDAS
+    
                 Why do we use it?
                 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
                 The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here,
